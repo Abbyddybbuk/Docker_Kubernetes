@@ -1,16 +1,16 @@
 ## Docker_Kubernetes
 
 # Docker Important Commands
-docker run--------------to run the image in container
-docker ps --all-------------to check all the running/exited containers
-docker system prune-----------to stop all containers
-docker create------------------container created
-docker start <id>-------------------start container
-docker logs <id>---------------------retrieve logs from container that ran before
-docker stop <id>---------------------Stop container
-docker kill <id>---------------------Stop container without grace period instantaneously
-docker exec -it <id> <command>---------Run commands within container (e.g. docker exec -it d1b657a5bfb4 redis-cli)
-docker exec -it <id> sh------------------shell access within container to run commands (docker exec -itd1b657a5bfb4 sh)
+* docker run--------------to run the image in container
+* docker ps --all-------------to check all the running/exited containers
+* docker system prune-----------to stop all containers
+* docker create------------------container created
+* docker start <id>-------------------start container
+* docker logs <id>---------------------retrieve logs from container that ran before
+* docker stop <id>---------------------Stop container
+* docker kill <id>---------------------Stop container without grace period instantaneously
+* docker exec -it <id> <command>---------Run commands within container (e.g. docker exec -it d1b657a5bfb4 redis-cli)
+* docker exec -it <id> sh------------------shell access within container to run commands (docker exec -itd1b657a5bfb4 sh)
 
 
 # How I ran docker redis?
@@ -29,17 +29,16 @@ docker exec -it <id> sh------------------shell access within container to run co
 
 * THE WHOLE PROCESS BELOW IS TO BUILD AN IMAGE WHICH CAN BE RUN AS CONTAINER WHEN REQUIRED
 * Use an existing docker image as a base
-
-FROM is an instruction to Docker Server; it specifies the base image (alpine) to be used
-FROM alpine
+* FROM is an instruction to Docker Server; it specifies the base image (alpine) to be used
+* FROM alpine
 
 * Download and install dependency
 * execute some steps
-RUN apk add --update redis
-RUN apk add --update gcc
+* INSTRUCTION TO BE WRITTEN in FILE: RUN apk add --update redis
+* INSTRUCTION TO BE WRITTEN in FILE: RUN apk add --update gcc
 * Tell the image what to do when it starts as a container
 * command to cmd
-CMD ["redis-server"]
+* INSTRUCTION TO BE WRITTEN in FILE: CMD ["redis-server"]
 
 *Important point to note here is that if you change the sequence of instructions in file above
 *then the images will be downloaded again else if you are not changing the sequence
