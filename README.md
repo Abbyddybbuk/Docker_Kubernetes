@@ -1,0 +1,52 @@
+## Docker_Kubernetes
+
+# Docker Important Commands
+docker run--------------to run the image in container
+docker ps --all-------------to check all the running/exited containers
+docker system prune-----------to stop all containers
+docker create------------------container created
+docker start <id>-------------------start container
+docker logs <id>---------------------retrieve logs from container that ran before
+docker stop <id>---------------------Stop container
+docker kill <id>---------------------Stop container without grace period instantaneously
+docker exec -it <id> <command>---------Run commands within container (e.g. docker exec -it d1b657a5bfb4 redis-cli)
+docker exec -it <id> sh------------------shell access within container to run commands (docker exec -itd1b657a5bfb4 sh)
+
+-------------------------
+# How I ran docker redis?
+-------------------------
+1. docker run redis (in First terminal)
+2. docker ps (to get the running containers and then to retrieve the container id)
+3. docker exec -it d1b657a5bfb4 redis-cli (-it is to open text editor in command prompt)
+   set myvalue 5
+   get myvalue 5
+
+---------------------------------------------------
+# How to run custom image in docker (alpine example)
+---------------------------------------------------
+1. Create a folder using command prompt: mkdir redis-image
+2. Open your Visual Studio and open the folder above.
+3. Now create a file with name Dockerfile and follow the code below.
+----------------------------------------------------------------------------------------------
+# THE WHOLE PROCESS BELOW IS TO BUILD AN IMAGE WHICH CAN BE RUN AS CONTAINER WHEN REQUIRED
+# Use an existing docker image as a base
+# FROM is an instruction to Docker Server; it specifies the base image (alpine) to be used
+FROM alpine
+
+# Download and install dependency
+# execute some steps
+RUN apk add --update redis
+RUN apk add --update gcc
+# Tell the image what to do when it starts as a container
+# command to cmd
+CMD ["redis-server"]
+
+#Important point to note here is that if you change the sequence of instructions in file above
+#then the images will be downloaded again else if you are not changing the sequence
+#docker is intelligent enough to download images only once initially
+----------------------------------------------------------------------------------------------
+4. Now you have to execute the command docker build . which will build the image so that it can be run in container.
+5. Now you just have to execute docker run <container-id>(copy container id from step above)
+6. Another way to run with latest version is to build with following command docker build -t <container-name>/<temporary-image-name>:<version>
+   (e.g. docker build -t focused_colden/redis-server:latest .)
+7. Then run the container with command as follows docker run <container-name>/<temporary-image-name> (e.g. docker run focused_colden/redis-server)
